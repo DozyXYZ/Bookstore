@@ -10,16 +10,16 @@
     <h1>Add Book</h1>
     <div>
         <form th:object="${book}" th:action="@{save}" action="#" method="post">
-            <label for="fname">Author</label>
+            <label for="fname">Author: </label>
             <input type="text" id="author" th:field="*{author}" />
             <div style="clear: both; display: block; height: 10px;"></div>
-            <label for="lname">Title</label>
+            <label for="lname">Title: </label>
             <input type="text" id="bname" th:field="*{title}" />
             <div style="clear: both; display: block; height: 10px;"></div>
-            <label for="email">ISBN</label>
+            <label for="email">ISBN: </label>
             <input type="text" th:field="*{isbn}" />
             <div style="clear: both; display: block; height: 10px;"></div>
-            <label for="email">Year</label>
+            <label for="email">Year: </label>
             <input type="text" th:field="*{years}" />
             <div style="clear: both; display: block; height: 10px;"></div>
             <input type="submit" value="Save"></input>
