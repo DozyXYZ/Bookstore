@@ -24,9 +24,9 @@ public class BookstoreApplication {
 	public CommandLineRunner bookDemo(BookRepository repository) {
 		return (args) -> {
 			log.info("save some books");
-			repository.save(new Book("Moby Dick", "Herman Melville", 1851, "54796213578", 7.99));
-			repository.save(new Book("White Fang", "Jack London", 1906, "12359756311", 5.99));
-			repository.save(new Book("Crime and Punishment", "Fyodor Dostoevsky", 1866, "964721357", 9.99));
+			repository.save(new Book("Moby Dick", "Herman Melville", 1851, "54796213578"));
+			repository.save(new Book("White Fang", "Jack London", 1906, "12359756311"));
+			repository.save(new Book("Crime and Punishment", "Fyodor Dostoevsky", 1866, "964721357"));
 
 			log.info("fetch all books");
 			for (Book book : repository.findAll()) {

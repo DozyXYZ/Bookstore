@@ -15,18 +15,16 @@ public class Book {
     private int years; // year is a reserved keyword in SQL dialect so it does not allow reserved
                        // keywords to be used as column name unless they are quoted
     private String isbn;
-    private double price;
 
     public Book() {
     }
 
-    public Book(String title, String author, int years, String isbn, double price) {
+    public Book(String title, String author, int years, String isbn) {
         super();
         this.title = title;
         this.author = author;
         this.years = years;
         this.isbn = isbn;
-        this.price = price;
     }
 
     public Long getId() {
@@ -69,18 +67,10 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     @Override
     public String toString() {
         return "Book [id=" + id + ", title=" + title + ", author=" + author + ", year=" + years + ", isbn=" + isbn
-                + ", price=" + price + "]";
+                + "]";
     }
 
 }
