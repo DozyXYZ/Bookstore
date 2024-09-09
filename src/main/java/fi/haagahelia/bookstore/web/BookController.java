@@ -72,4 +72,6 @@ public class BookController {
         repository.save(book);
         return "redirect:/booklist";
     }
+
+    // for edit and update: https://www.baeldung.com/spring-boot-crud-thymeleaf
 }
