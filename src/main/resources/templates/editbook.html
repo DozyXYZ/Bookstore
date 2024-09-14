@@ -9,7 +9,7 @@
 <body>
     <h1>Edit Book</h1>
     <div>
-        <form th:object="${book}" th:action="@{/update/{id}(id=${book.id})}" action="#" method="post">
+        <form th:object="${book}" th:action="@{/save}" action="#" method="post">
             <input type="hidden" th:field="*{id}" />
 
             <label for="fname">Author: </label>

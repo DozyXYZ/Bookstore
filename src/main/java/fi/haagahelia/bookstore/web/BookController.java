@@ -57,20 +57,8 @@ public class BookController {
     // given id, get the information of that id and add to the editbook form
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long bookId, Model model) {
-        Book book = repository.findById(bookId).orElse(null);
-        if (book != null) {
-            model.addAttribute("book", book);
-            return "editbook";
-        } else {
-            return "redirect../booklist";
-        }
-    }
-
-    // post the edited information to the database
-    @PostMapping("/update/{id}")
-    public String updateBook(Book book) {
-        repository.save(book);
-        return "redirect:/booklist";
+        model.addAttribute("book", repository.findById(bookId));
+        return "editbook";
     }
 
     // for edit and update: https://www.baeldung.com/spring-boot-crud-thymeleaf
