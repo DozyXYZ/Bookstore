@@ -28,6 +28,13 @@
             <input type="text" th:field="*{years}" />
             <div style="clear: both; display: block; height: 10px;"></div>
 
+            <label for="catlist">Category</label>
+            <select id="catist" th:field="*{category}" class="form-control">
+                <option th:each="cat: ${categories}" th:value="${cat.categoryId}" th:text="${cat.name}">
+                </option>
+            </select>
+            <div style="clear: both; display: block; height: 10px;"></div>
+
             <input type="submit" value="Update"></input>
         </form>
     </div>

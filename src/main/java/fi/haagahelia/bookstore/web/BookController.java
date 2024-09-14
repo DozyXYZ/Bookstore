@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import fi.haagahelia.bookstore.domain.Book;
 import fi.haagahelia.bookstore.domain.BookRepository;
+import fi.haagahelia.bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
@@ -16,6 +17,9 @@ public class BookController {
     // instance of BookRepository into repository field
     @Autowired
     private BookRepository repository;
+
+    @Autowired
+    private CategoryRepository crepository;
 
     // get all the entries from the repository and display it with booklist.html
     @GetMapping({ "/booklist", "/" })
@@ -32,7 +36,10 @@ public class BookController {
         // allow the form in the addbook.html to bind to this object and send back data
         // for a new entry
         model.addAttribute("book", new Book());
-        return "addbook"; // addbook.html will be rendered to the user when they visit /add
+        // get the all category and display it on the dropdown
+        model.addAttribute("categories", crepository.findAll());
+        // addbook.html will be rendered to the user when they visit /add
+        return "addbook";
     }
 
     @PostMapping("/save")
@@ -58,6 +65,7 @@ public class BookController {
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long bookId, Model model) {
         model.addAttribute("book", repository.findById(bookId));
+        model.addAttribute("categories", crepository.findAll());
         return "editbook";
     }
 
