@@ -1,6 +1,9 @@
 package fi.haagahelia.bookstore.domain;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -11,6 +14,9 @@ public class Category {
     private String name;
 
     // One category can have many books
+    // JsonIgnore to prevent infinite recursion or circular references during JSON
+    // serialization and deserialization.
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category")
     private List<Book> books;
 

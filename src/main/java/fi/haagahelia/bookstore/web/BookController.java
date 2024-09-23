@@ -1,5 +1,8 @@
 package fi.haagahelia.bookstore.web;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import fi.haagahelia.bookstore.domain.Book;
 import fi.haagahelia.bookstore.domain.BookRepository;
 import fi.haagahelia.bookstore.domain.CategoryRepository;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class BookController {
@@ -26,6 +31,18 @@ public class BookController {
     public String listBook(Model model) {
         model.addAttribute("books", repository.findAll());
         return "booklist";
+    }
+
+    // RESTful service to get all books
+    @GetMapping("/books")
+    public @ResponseBody List<Book> bookListRest() {
+        return (List<Book>) repository.findAll();
+    }
+
+    // RESTful service to retrieve 1 book by id
+    @GetMapping("/book/{id}")
+    public @ResponseBody Optional<Book> findStudentRest(@PathVariable("id") Long bookId) {
+        return repository.findById(bookId);
     }
 
     // maps this method to /add URL, so it will be triggered when user sends a GET
