@@ -33,6 +33,18 @@ public class BookController {
         return "booklist";
     }
 
+    /*
+     * Spring Boot data rest will automatically create these links that return json
+     * format
+     * requirements: add path change to application.properties:
+     * spring.data.rest.base-path=/api
+     * add dependency to pom.xml
+     * <dependency>
+     * <groupId>org.springframework.boot</groupId>
+     * <artifactId>spring-boot-starter-data-rest</artifactId>
+     * </dependency>
+     */
+
     // RESTful service to get all books
     @GetMapping("/books")
     public @ResponseBody List<Book> bookListRest() {
