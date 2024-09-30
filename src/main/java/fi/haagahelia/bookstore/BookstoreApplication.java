@@ -48,8 +48,11 @@ public class BookstoreApplication {
 			AppUser user1 = new AppUser("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
 			AppUser user2 = new AppUser("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C",
 					"ADMIN");
+			// pass: 123
+			AppUser user3 = new AppUser("ledo", "$2a$12$58wtf3KYthqONyy2DDXzaeZ9rRB4heLmNVPco/KFDCU5fGm1voE2C", "USER");
 			urepository.save(user1);
 			urepository.save(user2);
+			urepository.save(user3);
 
 			log.info("fetch all books");
 			for (Book book : repository.findAll()) {
