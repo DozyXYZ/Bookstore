@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import fi.haagahelia.bookstore.domain.Book;
 import fi.haagahelia.bookstore.domain.BookRepository;
 import fi.haagahelia.bookstore.domain.CategoryRepository;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -25,6 +25,11 @@ public class BookController {
 
     @Autowired
     private CategoryRepository crepository;
+
+    @GetMapping(value = "/login")
+    public String login() {
+        return "login";
+    }
 
     // get all the entries from the repository and display it with booklist.html
     @GetMapping({ "/booklist", "/" })
@@ -81,6 +86,8 @@ public class BookController {
 
     // {id} is a placeholder for the book's ID that will be passed dynamically in
     // the URL
+    // PreAuthorize to only ADMIN can delete the book
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long bookId, Model model) {
         // this method takes in the id as Long parameter
@@ -91,6 +98,7 @@ public class BookController {
     }
 
     // given id, get the information of that id and add to the editbook form
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long bookId, Model model) {
         model.addAttribute("book", repository.findById(bookId));
