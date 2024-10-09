@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 // import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import fi.haagahelia.bookstore.domain.AppUser;
+import fi.haagahelia.bookstore.domain.AppUserRepository;
 import fi.haagahelia.bookstore.domain.Book;
 import fi.haagahelia.bookstore.domain.BookRepository;
 import fi.haagahelia.bookstore.domain.Category;
@@ -27,6 +29,18 @@ public class BookRepositoryTest {
 
     @Autowired
     private CategoryRepository crep;
+
+    @Autowired
+    private AppUserRepository urep;
+
+    // test search book
+    @Test
+    public void findByTitleReturnsBook() {
+        List<Book> books = rep.findByTitle("Moby Dick");
+
+        assertThat(books).hasSize(1);
+        assertThat(books.get(0).getYears()).isEqualTo(1851);
+    }
 
     // test add book
     @Test
@@ -64,6 +78,60 @@ public class BookRepositoryTest {
         assertThat(updatedBook).isNotNull();
         assertThat(updatedBook.getTitle()).isEqualTo("Son of Moby Dick");
         assertThat(updatedBook.getYears()).isEqualTo(1951);
+    }
+
+    // test search category
+    @Test
+    public void findByNameReturnsCategory() {
+        List<Category> categories = crep.findByName("Horror");
+
+        assertThat(categories).hasSize(1);
+    }
+
+    // test add category
+    @Test
+    public void createNewCategory() {
+        Category category = new Category("18+");
+        crep.save(category);
+        assertThat(category.getCategoryId()).isNotNull();
+    }
+
+    // test delete category
+    @Test
+    public void deleteCategory() {
+        Category category = new Category("18+");
+        crep.save(category);
+        List<Category> categories = crep.findByName("18+");
+        Category category2 = categories.get(0);
+        crep.delete(category2);
+        List<Category> newCategories = crep.findByName("18+");
+        assertThat(newCategories).hasSize(0);
+    }
+
+    // test search user
+    @Test
+    public void findByUsernameReturnsUser() {
+        AppUser user = urep.findByUsername("ledo");
+        assertThat(user).isNotNull();
+    }
+
+    // test add user
+    @Test
+    public void createNewUser() {
+        // alecto / alecto
+        AppUser user = new AppUser("alecto", "$2a$12$ekKPNTACNTjQ2PlKJ7Ll3.CxJWcWt7R6kJXCWzoCkaM79x8zgLvWS", "USER");
+        urep.save(user);
+        AppUser testUser = urep.findByUsername("alecto");
+        assertThat(testUser).isNotNull();
+    }
+
+    // test delete user
+    @Test
+    public void deleteUser() {
+        AppUser user = urep.findByUsername("ledo");
+        urep.delete(user);
+        AppUser testUser = urep.findByUsername("ledo");
+        assertThat(testUser).isNull();
     }
 
 }
